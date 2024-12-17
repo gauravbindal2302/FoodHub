@@ -7,25 +7,25 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProductDetails = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_FETCH_ALL_PRODUCTS}`
-      );
-      const productData = response.data.products.find(
-        (product) => product._id === id
-      );
-      if (productData) {
-        setProduct(productData);
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_FETCH_ALL_PRODUCTS}`
+        );
+        const productData = response.data.products.find(
+          (product) => product._id === id
+        );
+        if (productData) {
+          setProduct(productData);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Error fetching product details:", err);
         setLoading(false);
       }
-    } catch (err) {
-      console.error("Error fetching product details:", err);
-      setLoading(false);
-    }
-  };
+    };
 
-  useEffect(() => {
     fetchProductDetails();
   }, [id]);
 
