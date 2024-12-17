@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { MdOutlineCancel } from "react-icons/md";
 
 export default function Home() {
   const [barcodeValue, setBarcodeValue] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchAllProducts = async () => {
       setLoading(true);
@@ -32,25 +32,32 @@ export default function Home() {
   return (
     <>
       <div className="home bg-gray-100 w-screen">
-        <div className="search-container p-6 bg-gray-50 shadow-md">
-          <input
-            type="text"
-            placeholder="Search product using barcode..."
-            value={barcodeValue}
-            onChange={(e) => setBarcodeValue(e.target.value)}
-            className="w-full md:w-1/2 p-3 border rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+        <div className="search-container flex items-center justify-center p-6 bg-gray-50 shadow-md">
+          <div className="relative w-full md:w-1/2">
+            <input
+              type="text"
+              placeholder="Search product by Barcode Number..."
+              value={barcodeValue}
+              onChange={(e) => setBarcodeValue(e.target.value)}
+              className="w-full p-3 pr-10 border rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <MdOutlineCancel
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-500"
+              onClick={() => setBarcodeValue("")}
+            />
+          </div>
         </div>
-        <div className="products-container py-8 px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 bg-gray-200">
+
+        <div className="products-container py-8 px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-200">
           {loading ? (
-            <div className="loading text-center text-xl font-semibold text-gray-500">
-              Loading Data...
+            <div className="loading h-screen text-left text-xl font-semibold text-gray-500">
+              Loading Products...
             </div>
           ) : (
             <>
               {filteredProducts.length === 0 ? (
-                <div className="text-center text-xl font-semibold text-gray-500">
-                  No products found.
+                <div className="h-screen text-xl font-semibold text-gray-500">
+                  <span>No products found.</span>
                 </div>
               ) : (
                 filteredProducts.map((product) => (
@@ -64,40 +71,24 @@ export default function Home() {
                       alt={product.product_name_fr}
                       className="w-48 h-64 mt-3 m-auto rounded-lg"
                     />
-                    <div className="p-4">
-                      <h2 className="text-xl font-semibold text-gray-800">
-                        {product.product_name_fr}
+                    <div className="p-4 text-left">
+                      <h2 className="text-lg font-semibold text-gray-800">
+                        {product.product_name}
                       </h2>
-                      <p className="text-gray-600 mb-2">
+                      <p className="text-gray-600 mb-1 text-sm">
                         <strong>Brand:</strong> {product.brands}
                       </p>
-                      <p className="text-gray-600 mb-2">
+                      <p className="text-gray-600 mb-1 text-sm">
                         <strong>Categories:</strong> {product.categories}
                       </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Ingredients:</strong>{" "}
-                        {product.ingredients_text_fr}
+
+                      <p className="text-gray-600 mb-1 text-sm">
+                        <strong>Nutritional Grade:</strong>{" "}
+                        {product.nutriscore_grade}
                       </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Allergens:</strong>{" "}
-                        {product.allergens_from_ingredients}
-                      </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Eco Score:</strong> {product.ecoscore_grade}{" "}
-                        (Score: {product.ecoscore_score})
-                      </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Nutriscore:</strong> {product.nutriscore_grade}
-                      </p>
-                      <p className="text-gray-600 mb-2">
+                      <p className="text-gray-600 mb-1 text-sm">
                         <strong>Quantity:</strong> {product.product_quantity}{" "}
                         {product.product_quantity_unit}
-                      </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Packaging:</strong> {product.packaging_text_fr}
-                      </p>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Available at:</strong> {product.stores}
                       </p>
                     </div>
                   </Link>
