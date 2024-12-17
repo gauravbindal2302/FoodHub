@@ -39,7 +39,7 @@ export default function Navbar() {
             placeholder="Search Products here..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 rounded-md"
+            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none  focus:none p-2 rounded-md"
           />
           <button className="ml-2 p-2 rounded-lg">
             <MdOutlineCancel

@@ -38,58 +38,58 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="product-details min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4 md:px-12">
-        <div className="product-detail-card bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="product-image w-full md:w-2/5 bg-gray-200">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+            <div className="flex justify-center items-center">
               <img
                 src={product.image_url}
                 alt={product.product_name_fr}
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                className="w-full max-w-md h-80 object-contain rounded-lg shadow-md"
               />
             </div>
-            <div className="product-info w-full md:w-3/5 p-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                {product.product_name_fr}
+            <div className="text-left">
+              <h1 className="text-3xl font-semibold text-gray-900 mb-4">
+                {product.product_name}
               </h1>
               <p className="text-lg text-gray-700 mb-4">
                 <strong>Brand:</strong> {product.brands}
               </p>
-              <div className="text-lg text-gray-600 mb-6">
-                <div className="mb-2">
-                  <strong>Categories:</strong> {product.compared_to_category}
+              <div className="text-lg text-gray-600 mb-6 space-y-3">
+                <div>
+                  <strong>Categories:</strong> {product.categories}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Ingredients:</strong> {product.ingredients_text_fr}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Allergens:</strong>{" "}
                   {product.allergens_from_ingredients}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Eco Score:</strong> {product.ecoscore_grade} (Score:{" "}
                   {product.ecoscore_score})
                 </div>
-                <div className="mb-2">
-                  <strong>Nutriscore:</strong> {product.nutriscore_grade}
+                <div>
+                  <strong>Nutritional Grade:</strong> {product.nutriscore_grade}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Quantity:</strong> {product.product_quantity}{" "}
                   {product.product_quantity_unit}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Packaging:</strong> {product.packaging_text_fr}
                 </div>
-                <div className="mb-2">
+                <div>
                   <strong>Available at:</strong> {product.stores}
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <button className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+              <div className="flex gap-6 mt-8">
+                <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">
                   Add to Cart
                 </button>
-                <button className="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg shadow-md hover:bg-gray-400 transition duration-300">
+                <button className="w-full sm:w-auto px-6 py-3 bg-gray-300 text-gray-800 rounded-lg shadow-lg hover:bg-gray-400 transition duration-300">
                   Go Back
                 </button>
               </div>

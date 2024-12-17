@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="products-container py-8 px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-200">
+        <div className="products-container py-8 lg:px-16 px-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-200">
           {loading ? (
             <div className="loading h-screen text-left text-xl font-semibold text-gray-500">
               Loading Products...
