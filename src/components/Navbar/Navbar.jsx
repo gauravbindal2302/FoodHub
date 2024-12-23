@@ -23,13 +23,12 @@ export default function Navbar() {
     fetchProductData();
   }, []);
 
-  const getSuggestions = (query) => {
-    return products.filter((product) =>
-      product.product_name.toLowerCase().includes(query.toLowerCase())
-    );
-  };
-
   useEffect(() => {
+    const getSuggestions = (query) => {
+      return products.filter((product) =>
+        product.product_name.toLowerCase().includes(query.toLowerCase())
+      );
+    };
     if (searchValue.length > 0) {
       const filteredSuggestions = getSuggestions(searchValue);
       setSuggestions(filteredSuggestions);
