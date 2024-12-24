@@ -29,6 +29,7 @@ export default function Navbar() {
         product.product_name.toLowerCase().includes(query.toLowerCase())
       );
     };
+
     if (searchValue.length > 0) {
       const filteredSuggestions = getSuggestions(searchValue);
       setSuggestions(filteredSuggestions);
@@ -54,32 +55,38 @@ export default function Navbar() {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search Products here..."
-            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:none p-2 rounded-md"
+            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none p-2 rounded-md"
           />
           <button className="ml-2 p-2 rounded-lg">
             <MdOutlineCancel
               className="cursor-pointer hover:text-blue-500 text-gray-500"
-              onClick={() => setSearchValue("")}
+              onClick={() => {
+                setSearchValue("");
+                setSuggestions([]);
+              }}
             />
           </button>
-          {searchValue && suggestions.length > 0 && (
+
+          {searchValue && suggestions.length > 0 ? (
             <ul className="absolute top-full max-h-60 left-0 w-full bg-white border mt-2 rounded-md shadow-lg z-10 overflow-y-auto">
-              {suggestions.length > 0 ? (
-                suggestions.map((product) => (
-                  <Link
-                    to={`/product/details/${product._id}`}
-                    key={product._id}
-                    onClick={() => handleSuggestionClick(product)}
-                  >
-                    <li className="p-2 hover:bg-gray-200 cursor-pointer">
-                      {product.product_name}
-                    </li>
-                  </Link>
-                ))
-              ) : (
-                <li className="p-2 text-gray-500">No product found</li>
-              )}
+              {suggestions.map((product) => (
+                <Link
+                  to={`/product/details/${product._id}`}
+                  key={product._id}
+                  onClick={() => handleSuggestionClick(product)}
+                >
+                  <li className="p-2 hover:bg-gray-200 cursor-pointer">
+                    {product.product_name}
+                  </li>
+                </Link>
+              ))}
             </ul>
+          ) : (
+            searchValue && (
+              <ul className="absolute top-full max-h-60 left-0 w-full bg-white border mt-2 rounded-md shadow-lg z-10 overflow-y-auto">
+                <li className="p-2 text-gray-500">No product found</li>
+              </ul>
+            )
           )}
         </div>
         <div className="login-register text-white text-lg sm:text-xl font-medium sm:block">
@@ -88,6 +95,7 @@ export default function Navbar() {
           </span>
         </div>
       </div>
+
       <div className="search-bar-mobile sm:hidden w-full px-4 py-4 bg-black">
         <div className="flex items-center bg-gray-800 rounded-lg w-full px-4 py-1">
           <input
@@ -95,12 +103,15 @@ export default function Navbar() {
             placeholder="Search Products here..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:none p-2 rounded-md"
+            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none p-2 rounded-md"
           />
           <button className="ml-2 p-2 rounded-lg">
             <MdOutlineCancel
               className="cursor-pointer hover:text-blue-500 text-gray-500"
-              onClick={() => setSearchValue("")}
+              onClick={() => {
+                setSearchValue("");
+                setSuggestions([]);
+              }}
             />
           </button>
         </div>
